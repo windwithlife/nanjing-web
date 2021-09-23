@@ -4,10 +4,13 @@ import { Provider } from 'react-redux';
 import store from './store'
 import '@/index.less';
 import App from '@pages/App';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 ReactDOM.render(
   <Provider store={store}>
+    
     <App></App>
+   
   </Provider>,
   document.getElementById('root')
 );

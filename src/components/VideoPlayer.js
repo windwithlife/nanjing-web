@@ -2,11 +2,13 @@ import React from 'react';
 import videojs from 'video.js'
 import videozhCN from 'video.js/dist/lang/zh-CN.json'; //播放器中文，不能使用.js文件
 import 'video.js/dist/video-js.css';  //样式文件注意要加上
+import '../styles/Player.less';
 //import 'videojs-flash';  //如果要播放RTMP要使用flash 需要先npm i videojs-flash
 
 export default class VideoPlayer extends React.Component {
     stateObject = {
         ended: false,
+        currentTime:0.0,
     }
     constructor(props) {
         super(props);
@@ -30,9 +32,11 @@ export default class VideoPlayer extends React.Component {
         let that = this;
         this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
             console.log('onPlayerReady', this);
+            //that.player.requestFullScreen();
             this.on('progress', function () {//客户端正在请求数据
-                console.log("客户端正在请求数据")
+                console.log("客户端正在请求数据......")
                 that.handleStateChange('progress');
+                
             });
             this.on('abort', function () {//客户端主动终止下载（不是因为错误引起）
                 console.log("客户端主动终止下载")
@@ -47,6 +51,8 @@ export default class VideoPlayer extends React.Component {
             });
             this.on('play', function () {//开始播放
                 console.log("开始播放")
+                //this.muted(false);
+                //setTimeout(function(){that.player.muted(false)},2000);
                 that.handleStateChange('play');
             });
             this.on('pause', function () {//暂停
@@ -64,6 +70,8 @@ export default class VideoPlayer extends React.Component {
             });
             this.on('playing', function () {//开始回放
                 console.log("开始回放")
+                
+                that.handleStateChange('playing');
             });
             this.on('canplay', function () {//可以播放，但中途可能因为加载而暂停
                 console.log("可以播放，但中途可能因为加载而暂停")
@@ -79,7 +87,7 @@ export default class VideoPlayer extends React.Component {
             });
             this.on('timeupdate', function () {//播放时间改变
                 //console.log("播放时间改变" + this.currentTime())
-                that.handleStateChange('currentTime',this.currentTime());
+                that.handleStateChange('currentTime', this.currentTime());
             });
             this.on('ended', function () {//播放结束
                 console.log("播放结束")
@@ -97,9 +105,17 @@ export default class VideoPlayer extends React.Component {
                 console.log("音量改变")
                 that.handleStateChange('volumechange');
             });
+            this.on('canplay', function () {//请求数据时遇到错误
+                console.log("canplay--canplay")
+                //this.play();
+               
+                that.handleStateChange('canplay');
+            });
+            //this.play();
 
         });
-        videojs.addLanguage('zh-CN', videozhCN);
+        ///videojs.addLanguage('zh-CN', videozhCN);
+        setTimeout(function(){that.player.play()},500);
 
     }
 
@@ -115,11 +131,9 @@ export default class VideoPlayer extends React.Component {
     // see https://github.com/videojs/video.js/pull/3856
     render() {
         return (
-            <div>
-                <div data-vjs-player>  {/*这个带有属性的div目前没看到作用，可以去掉*/}
-                    <video ref={node => this.videoNode = node} className="video-js" data-setup='{}' ></video>
-                </div>
-            </div>
+
+            <video ref={node => this.videoNode = node} poster="static/bg.jpeg" className="video-js" data-setup='{}' webkit-playsinline playsinline ></video>
+
         )
     }
 }

@@ -23,7 +23,8 @@ module.exports = {
     },
     devServer: {
         contentBase: path.resolve(__dirname, './src'),
-        host :'127.0.0.1',
+        host :'10.32.33.116',
+
         headers: {
           'Access-Control-Allow-Origin': '*',
         },
