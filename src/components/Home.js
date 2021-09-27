@@ -36,11 +36,11 @@ export default class Home extends Component {
       <div className="home_box">
 
         <div className="class_close" onClick={this.closeFull}>.</div>
-        <div className="home_col" ><img className="image_class" src="static/bg0.jpg" onClick={this.onClick} /></div>
-        <div className="home_col" ><Link to='/enviroment' > <img className="image_class" src="static/bg1.jpg" /></Link></div>
-        <div className="home_col" ><Link to='/air' > <img className="image_class" src="static/bg2.jpg" /> </Link></div>
-        <div className="home_col" ><Link to='/space' ><img className="image_class" src="static/bg3.jpg" /></Link></div>
-        <img className="home_col,image_class" src="static/bg4.jpg" />
+        <div className="home_col" ><img className="image_class" src="static/bg0.jpeg" onClick={this.onClick} /></div>
+        <div className="home_col" ><Link to='/enviroment' > <img className="image_class" src="static/bg1.jpeg" /></Link></div>
+        <div className="home_col" ><Link to='/air' > <img className="image_class" src="static/bg2.jpeg" /> </Link></div>
+        <div className="home_col" ><Link to='/space' ><img className="image_class" src="static/bg3.jpeg" /></Link></div>
+        <img className="home_col_min " src="static/bg4.jpeg" />
 
       </div>
 
